@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;ApplicationExceptionhandler.java&apos; to &apos;staffdetails/src/main/java/com.example.staff.exception&apos;&#x0D;&#x0A;- Original project: &apos;reservationdetails&apos;&#x0D;&#x0A;- Destination element: &apos;staffdetails/src/main/java/com.example.staff.exception&apos;&#x0D;&#x0A;- Original element: &apos;com.example.reservation.exception.ApplicationExceptionhandler.java&apos;" description="Copy compilation unit" destination="=staffdetails/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.staff.exception" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.reservation.exception{ApplicationExceptionhandler.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1697749208991" units="1" version="1.0"/>
+</session>

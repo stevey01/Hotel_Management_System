@@ -1,0 +1,109 @@
+package com.example.guest;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.example.guest.DTO.GuestDTO;
+import com.example.guest.Service.GuestService;
+import com.example.guest.model.Guest;
+import com.example.guest.repository.GuestRepository;
+
+
+
+
+@SpringBootTest
+class GuestdetailsApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+	@Autowired
+	GuestService guestservice;
+	
+	@MockBean
+	GuestRepository guestRepository;
+	
+	@Test
+	public void getAllGuest()
+	{
+		when(guestRepository.findAll()).thenReturn(Stream.of(new Guest(1,9847564,"abcd","sam","male","email","capg","madurai")).collect(Collectors.toList()));
+	
+	assertEquals(1,guestservice.getallguest().size());
+	}
+	@Test
+public void saveguest()
+{
+	Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+	when(guestRepository.save(guest)).thenReturn(guest);
+	
+	assertEquals(guest,guestservice.createguest(guest));
+	
+}
+	@Test
+	public void deleteguest()
+	{
+	     Long id = 1L;
+	     Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+	        guest.setId(id);
+	        when(guestRepository.findById(id)).thenReturn(Optional.of(guest));
+	        guestservice.deleteguest(id);
+	        verify(guestRepository,times(1)).delete(guest);
+	}
+	   @Test
+	    void updateGuest() {
+		   Guest guest=new Guest((long) 1,9847564,"abcd","sam","male","email","capg","sam@gmail.com");
+	        Long id = 1L;
+	        Guest existingGuest  = new  Guest ();
+	        existingGuest.setId(id);
+	       
+	        when(guestRepository.findById(id)).thenReturn(Optional.of(existingGuest));
+
+	        when(guestRepository.save(existingGuest)).thenReturn(existingGuest);
+	        
+	        Guest updatedGuest = guestservice.updateguest(id, guest);
+	      
+	        assertEquals(guest.getEmail(), updatedGuest.getEmail());
+	        assertEquals(guest.getCompany(), updatedGuest.getCompany());
+	        
+	    }
+@Test
+void getguestbyid()
+{
+	Guest guest=new Guest((long) 1,9847564,"abcd","sam","male","email","capg","sam@gmail.com");
+    Long id = 1L;
+    guest.setId(id);
+   
+    when(guestRepository.findById(id)).thenReturn(Optional.of(guest));
+
+    Guest retrievedGuest = guestservice.getguestbyid(id);
+
+    
+    assertEquals(guest.getId(), retrievedGuest.getId());
+    
+}
+
+
+	 
+	   
+	   
+
+
+	
+}

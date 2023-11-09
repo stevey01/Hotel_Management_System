@@ -1,0 +1,31 @@
+package com.example.reservation.repository;
+
+
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.example.reservation.model.Room;
+
+import feign.Param;
+
+@Repository
+public interface RoomRepository extends JpaRepository<Room, Long> {
+
+	Optional<Room> findBycode(String code);
+
+	@Query("SELECT r FROM Room r WHERE (:checkin_date BETWEEN r.checkin_date AND r.checkout_date) AND (:checkout_date BETWEEN r.checkin_date AND r.checkout_date)")
+    List<Room> findAvailableRoomsBetweenDates(@Param("checkin_date") LocalDate checkInDate, @Param("checkout_date") LocalDate checkOutDate);
+	@Query("SELECT r FROM Room r WHERE (:roomType LIKE roomType )")
+    List<Room> findRoomsByType(@Param("roomType") String roomType);
+
+
+	
+	//List<Room> findAvailableRooms(Date checkInDate, Date checkOutDate);
+
+}

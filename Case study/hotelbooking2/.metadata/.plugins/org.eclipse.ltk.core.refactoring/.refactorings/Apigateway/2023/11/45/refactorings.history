@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move package &apos;com.example.gateway&apos; to &apos;guestdetails/src/main/java/com.example.guest.DTO&apos;&#x0D;&#x0A;- Original project: &apos;Apigateway&apos;&#x0D;&#x0A;- Destination element: &apos;guestdetails/src/main/java/com.example.guest.DTO&apos;&#x0D;&#x0A;- Original element: &apos;Apigateway/src/main/java/com.example.gateway&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=guestdetails/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.guest.DTO" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.gateway" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1699457287558" version="1.0"/>
+</session>

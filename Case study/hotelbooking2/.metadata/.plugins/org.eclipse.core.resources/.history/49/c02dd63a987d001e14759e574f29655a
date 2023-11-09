@@ -1,0 +1,47 @@
+package com.example.payment.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Entity
+@Table(name="payment")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Payment {
+
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	 long id;
+	@Column(name="code")
+	String code;
+	  @NotBlank(message = "Please enter the card_holder_name")
+	@Column(name="card_holder_name")
+	 String card_holder_name;
+	  
+	@Column(name="card_number")
+	 long card_number;
+	
+	  @NotBlank(message = "Please enter the exp_date")
+	@Column(name="exp_date")
+	 String exp_date;
+
+	@Column(name="amount")
+	
+	 long amount;
+	
+	@NotBlank(message = "Please enter the pay_time")
+	@Column(name="pay_time")
+	 String pay_time;
+	
+}

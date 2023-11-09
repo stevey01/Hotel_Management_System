@@ -1,0 +1,50 @@
+package com.example.reservation.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table (name="reservation")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Reservation {
+	
+	@Id
+
+    long id;
+	@Column(name="code")
+	
+	long no_of_Adult;
+	@Column(name="no_of_child")
+	 
+	
+    long no_of_child;
+	@Column(name="checkin_date")
+	@NotBlank(message="check_in_date cannot be blank")
+    String check_in_date;
+	@NotBlank(message="check_in_date cannot be blank")
+	@Column(name="checkout_date")
+    String checkout_date;
+	  @NotBlank(message = "Please enter the Status ")
+	@Column(name="Status")
+    String Status;
+	
+	@Column(name="Number_of_Nights")
+	 
+    long Number_of_Nights;
+	
+	
+}

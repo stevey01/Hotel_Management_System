@@ -1,0 +1,73 @@
+package com.example.payment.ServiceImpl;
+
+
+
+import java.util.List;
+
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.payment.Service.PaymentService;
+
+import com.example.payment.exception.ResourceNotFoundException;
+import com.example.payment.model.Payment;
+import com.example.payment.repository.PaymentRepository;
+
+
+
+@Service
+public class PaymentServiceImpl implements PaymentService {
+	@Autowired
+	PaymentRepository paymentrepository;
+	 
+	 
+	@Override
+	public List<Payment> getAllpayments() {
+		// TODO Auto-generated method stub
+		return paymentrepository.findAll();
+	}
+	
+
+	@Override
+	public Payment createpayment(Payment payment) {
+		// TODO Auto-generated method stub
+		 // Payment payment = new Payment();
+	       // BeanUtils.copyProperties(paymentdto, payment);
+	        Payment payments= paymentrepository.save(payment);
+			return payments;
+	}
+
+	@Override
+	public Payment updatepayment(Long id, Payment paymentdetails) {
+		
+		Payment payment= paymentrepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(" id not exist :" + id));
+			     payment.setCard_holder_name(paymentdetails.getCard_holder_name());
+			     
+			     payment.setExp_date(paymentdetails.getExp_date());
+			     payment.setAmount(paymentdetails.getAmount());
+			     payment.setPay_time(paymentdetails.getPay_time());
+			     Payment payments= paymentrepository.save(payment);
+					return payments;
+				 
+					}
+
+	@Override
+	public void deletepayment(Long id) {
+		// TODO Auto-generated method 
+		Payment payment= paymentrepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(" id not exist :" + id));
+
+	paymentrepository.delete(payment);
+	}
+	@Override
+	public Payment getpaymentbyid(Long id) {
+		return paymentrepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found with id: " + id));
+		
+	}
+
+}

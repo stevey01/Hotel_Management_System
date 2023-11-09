@@ -1,0 +1,94 @@
+package com.example.guest.testcontroller;
+import com.example.guest.controller.GuestController;
+import com.example.guest.model.Guest;
+import com.example.guest.ServiceImpl.GuestServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class GuestControllerTest {
+
+	@Mock
+    private GuestServiceImpl guestService;
+
+    @InjectMocks
+    private GuestController guestController;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void testGetAllGuest() {
+        List<Guest> guests = new ArrayList<>();
+        // Set up some sample guests
+        Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+        Mockito.when(guestService.getallguest()).thenReturn(guests);
+
+        List<Guest> result = guestController.getAllGuest();
+
+        assertEquals(guests, result);
+    }
+
+    @Test
+    public void testGetGuestById() {
+        long guestId = 1L;
+        
+        // Set up the sample guest with the given ID
+        Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+        Mockito.when(guestService.getguestbyid(guestId)).thenReturn(guest);
+
+        ResponseEntity<Guest> result = guestController.getGuestById(guestId);
+
+        assertEquals(ResponseEntity.ok(guest), result);
+    }
+
+    @Test
+    public void testCreateGuest() {
+       
+        // Set up the guest to be created
+        Guest guest1=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+        ResponseEntity<String> result = guestController.createGuest(guest1);
+
+        Mockito.verify(guestService, Mockito.times(1)).createguest(guest1);
+        assertEquals(ResponseEntity.ok("Guest added successfully"), result);
+    }
+
+    @Test
+    public void testUpdateGuest() {
+        long guestId = 1L;
+        Guest updatedGuest = new Guest();
+        // Set up the guest with the given ID and the updated guest details
+        Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+       updatedGuest.setId(guestId);
+        ResponseEntity<String> result = guestController.updateGuest(guestId, updatedGuest);
+
+        Mockito.verify(guestService, Mockito.times(1)).updateguest(guestId, updatedGuest);
+        assertEquals(ResponseEntity.ok("Guest updated successfully"), result);
+    }
+
+    @Test
+    public void testDeleteGuest() {
+        long guestId = 1L;
+
+        ResponseEntity<Map<String, Boolean>> result = guestController.deleteGuest(guestId);
+
+        Mockito.verify(guestService, Mockito.times(1)).deleteguest(guestId);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", true);
+        assertEquals(ResponseEntity.ok(response), result);
+    }
+}

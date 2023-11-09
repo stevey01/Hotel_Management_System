@@ -1,0 +1,14 @@
+
+spring.application.name=ZUUL-SECURITY
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+spring.data.mongodb.uri= mongodb://localhost:27017/hotel_management_system
+
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka
+
+zuul.routes.admins.serviceId=ADMIN-SERVICE
+zuul.routes.users.serviceId=USER-SERVICE
+zuul.routes.washers.serviceId=WASHER-SERVICE
+zuul.routes.orders.serviceId=ORDER-SERVICE
+
+server.port=8199

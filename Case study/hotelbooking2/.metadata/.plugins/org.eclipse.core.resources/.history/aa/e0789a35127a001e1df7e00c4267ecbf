@@ -1,0 +1,86 @@
+package com.example.guest.testcontroller;
+import com.example.guest.controller.GuestController;
+import com.example.guest.model.Guest;
+import com.example.guest.ServiceImpl.GuestServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+public class GuestControllerTest {
+
+    @Mock
+    private GuestServiceImpl guestService;
+  @Autowired
+    private GuestController guestController;
+
+   
+    
+
+    @Test
+    public void testGetAllGuest() {
+        List<Guest> guests = new ArrayList<>();
+        // Add some sample guests to the list
+    	Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");
+      guests.add(guest);
+    	when(guestService.getallguest()).thenReturn(guests);
+
+        List<Guest> result = guestController.getAllGuest();
+
+        assertEquals(guests, result);
+    }
+
+    @Test
+    public void testGetGuestById() {
+        long guestId = 1L;
+        Guest guest = new Guest();
+        // Set up the guest with the given ID
+
+        when(guestService.getguestbyid(guestId)).thenReturn(guest);
+
+        ResponseEntity<Guest> result = guestController.getGuestById(guestId);
+
+        assertEquals(ResponseEntity.ok(guest), result);
+    }
+
+    @Test
+    public void testCreateGuest() {
+        Guest guest = new Guest();
+        // Set up the guest to be created
+
+        ResponseEntity<String> result = guestController.createGuest(guest);
+
+        verify(guestService, times(1)).createguest(guest);
+        assertEquals(ResponseEntity.ok("Guest added successfully"), result);
+    }
+
+    @Test
+    public void testUpdateGuest() {
+        long guestId = 1L;
+        Guest updatedGuest = new Guest();
+        // Set up the guest with the given ID and the updated guest details
+
+        ResponseEntity<String> result = guestController.updateGuest(guestId, updatedGuest);
+
+        verify(guestService, times(1)).updateguest(guestId, updatedGuest);
+        assertEquals(ResponseEntity.ok("Guest updated successfully"), result);
+    }
+
+    @Test
+    public void testDeleteGuest() {
+        long guestId = 1L;
+
+        ResponseEntity<Map<String, Boolean>> result = guestController.deleteGuest(guestId);
+
+        verify(guestService, times(1)).deleteguest(guestId);
+        assertEquals(ResponseEntity.ok(Collections.singletonMap("deleted", true)), result);
+    }
+}

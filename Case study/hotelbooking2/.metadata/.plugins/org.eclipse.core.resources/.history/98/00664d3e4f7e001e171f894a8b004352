@@ -1,0 +1,38 @@
+package com.example.guest.DTO;
+
+import javax.persistence.Column;
+
+
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class GuestDTO {
+
+	
+	
+	
+	@Column(name="Phone_number")
+	
+	 private long phno;
+	
+	@Column(name="Name")
+	 private String name;
+	@Column(name="Gender")
+	 private String gender;
+	@Column(name="Email")
+	 private String email;
+	@Column(name="Company")
+	 private String company;
+	@Column(name="Address")
+	 private String address;
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,43 @@
+package com.example.guest.testcontroller;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
+import com.example.guest.ServiceImpl.GuestServiceImpl;
+import com.example.guest.controller.GuestController;
+import com.example.guest.model.Guest;
+
+public class GuestControllerTest {
+
+	 @Mock
+	    private GuestServiceImpl guestService;
+@Mock
+	    private GuestController guestController;
+
+	    @BeforeEach
+	    public void setUp() {
+	        MockitoAnnotations.initMocks(this);
+	       
+	    }
+
+	    @Test
+	    public void testGetAllGuest() {
+	        List<Guest> guests = new ArrayList<>();
+	        // Add some sample guests to the list
+	        Guest guest=new Guest((long)1,9847564,"abcd","sam","male","email","capg","madurai");        
+	     guests.add(guest);
+	        when(guestService.getallguest()).thenReturn(guests);
+
+	        List<Guest> result = guestController.getAllGuest();
+
+	        assertEquals(guests, result);
+
+	    }
+}
